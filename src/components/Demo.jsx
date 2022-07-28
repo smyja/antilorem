@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactDOMServer from "react-dom/server";
 import { Textarea, Button ,NumberInput} from "@mantine/core";
 import TypeWriterEffect from "react-typewriter-effect";
+import Typewriter from "typewriter-effect";
 import {api} from '../helpers/api'
 import axios from "axios";
 
@@ -11,6 +12,7 @@ const Demo = () => {
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [length, setLength] = useState(0);
+  const [author, setAuthor] = useState("");
   function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
@@ -18,35 +20,35 @@ const Demo = () => {
       // eslint-disable-next-line no-restricted-globals
       .post(api.posts.create, { name:title, length:length })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setLoading(false);
         setOutput(res.data);
+        setAuthor( <Typewriter
+  
+          onInit={(typewriter)=> {
+        
+          typewriter
+           
+            .typeString(`${res.data.output}`)
+            .start();
+                      
+        }}/>)
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
         setError(err.message || err);
       });
-  }
-  console.log(output.output)      
-  const element = (
-  
-    <TypeWriterEffect
-      // textStyle={{ fontFamily: 'Red Hat Display' }}
-      startDelay={100}
-      cursorColor="black"
-      text={output.output}
-      typeSpeed={100}
-    />
-  );
-  const html = ReactDOMServer.renderToString(element);
+
+  }  
+ 
   return (
     <>
-      
+ 
       <form onSubmit={handleSubmit}>
         <Textarea
-        placeholder="Autosize with no rows limit"
-        label="Autosize with no rows limit"
+        placeholder="Start writing your story..."
+        label="Title"
         autosize
         style={{
           width: "500px",
@@ -70,14 +72,13 @@ const Demo = () => {
         onChange={(val) => setLength(val)} 
         />
       <div
-          contentEditable="true"
-          suppressContentEditableWarning={true}
+       
         style={{
           // backgroundColor: "#2C2E33",
           font: "small courier, monospace black",
           width: "500px",
           // height: "60px" /* or whatever measurements you want */,
-          overflow: "hidden",
+          // overflow: "hidden",
           overflowWrap: "break-word",
           outline: "0px solid transparent",
           borderStyle: "none none solid",
@@ -85,8 +86,9 @@ const Demo = () => {
           marginTop: "60px",
           borderBottom: "medium none",
         }}
-      >
-        {element}
+        >
+          {loading ? ( <div>Loading...</div>) : author}
+    
       </div>
 
       <Button
@@ -96,6 +98,7 @@ const Demo = () => {
       >
         Submit
         </Button>
+    
         {error && <p>{error}</p>}
       </form>
     </>
