@@ -1,6 +1,15 @@
-import { createStyles, Title, Text, Button, Container } from "@mantine/core";
+import {
+  createStyles,
+  Title,
+  Text,
+  Button,
+  Container,
+  Space,
+} from "@mantine/core";
+import { transform } from "typescript";
 import { Dots } from "./Dots";
 import { FeaturesAsymmetrical } from "./Features";
+import { FooterCentered } from "./Footer";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -39,7 +48,7 @@ const useStyles = createStyles((theme) => ({
   title: {
     textAlign: "center",
     fontWeight: 800,
-    fontSize: 40,
+    fontSize: 64,
     letterSpacing: -1,
     color: theme.colorScheme === "dark" ? theme.white : theme.black,
     marginBottom: theme.spacing.xs,
@@ -103,6 +112,19 @@ export function LandingPage() {
       <Dots className={classes.dots} style={{ right: 0, top: 60 }} />
 
       <div className={classes.inner}>
+        <Title
+          className={classes.title}
+          style={{
+            backgroundImage:
+              "linear-gradient(315deg, #4d0eae, #d846a5 49%, #ff7b61 103%)",
+            backgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            fontSize: "80px",
+      
+          }}
+        >
+          Anti-lorem
+        </Title>
         <Title className={classes.title}>
           All you need is a{" "}
           <Text component="span" className={classes.highlight} inherit>
@@ -120,19 +142,28 @@ export function LandingPage() {
 
         <div className={classes.controls}>
           <Button
+            component="a"
+            href="https://github.com/mantinedev/mantine"
             className={classes.control}
             size="lg"
             variant="default"
             color="black"
           >
-            Book a demo
+            Try it
           </Button>
-          <Button className={classes.control} size="lg">
-            Purchase a license
+          <Button
+            component="a"
+            href="https://github.com/smyja/mantine"
+            className={classes.control}
+            size="lg"
+          >
+            Github
           </Button>
         </div>
         <FeaturesAsymmetrical />
       </div>
+      <Space h="md" />
+      <FooterCentered />
     </Container>
   );
 }
