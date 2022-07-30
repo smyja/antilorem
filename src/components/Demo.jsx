@@ -1,12 +1,32 @@
 import React, { useState } from "react";
 import ReactDOMServer from "react-dom/server";
-import { Textarea, Button, NumberInput } from "@mantine/core";
+import { Textarea, Button, NumberInput,  createStyles } from "@mantine/core";
 import TypeWriterEffect from "react-typewriter-effect";
 import Typewriter from "typewriter-effect";
 import { api } from "../helpers/api";
 import axios from "axios";
 
+const useStyles = createStyles((theme) => ({
+  form: {
+    "@media (max-width: 800px)": {
+      marginLeft: "-350px",
+    },
+  },
+  textare: {
+    "@media (max-width: 800px)":
+    {
+      width: "400px !important",
+      },
+  },
+  output: {
+    "@media (max-width: 800px)":
+    {
+      width: "400px !important",
+    },
+  },
+}))
 const Demo = () => {
+  const { classes } = useStyles();
   const [output, setOutput] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -40,7 +60,7 @@ const Demo = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={classes.form}>
         <Textarea
           placeholder="Start writing your story..."
           label="Title"
@@ -52,9 +72,11 @@ const Demo = () => {
           }}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          className={classes.textare}
         ></Textarea>
         <NumberInput
           placeholder="Enter the number of words to Generate"
+          className={classes.textare}
           style={{
             width: "500px",
             height: "20px",
@@ -65,6 +87,7 @@ const Demo = () => {
           onChange={(val) => setLength(val)}
         />
         <div
+          className= {classes.output}
           style={{
             // backgroundColor: "#2C2E33",
             font: "small courier, monospace black",

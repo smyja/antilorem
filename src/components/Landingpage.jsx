@@ -6,7 +6,6 @@ import {
   Container,
   Space,
 } from "@mantine/core";
-import { transform } from "typescript";
 import { Dots } from "./Dots";
 import { FeaturesAsymmetrical } from "./Features";
 import { FooterCentered } from "./Footer";
