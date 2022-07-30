@@ -116,9 +116,10 @@ export function LandingPage() {
           style={{
             backgroundImage:
               "linear-gradient(315deg, #4d0eae, #d846a5 49%, #ff7b61 103%)",
-            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             fontSize: "80px",
+            backgroundColor:"#4d0eae",
       
           }}
         >
