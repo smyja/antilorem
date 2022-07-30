@@ -46,7 +46,7 @@ const Demo = () => {
         setAuthor(
           <Typewriter
             onInit={(typewriter) => {
-              typewriter.typeString(`${res.data.output}`).start();
+              typewriter.typeString(`${res.data.output}`).changeDelay(1).start();
             }}
           />
         );
