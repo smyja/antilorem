@@ -142,7 +142,7 @@ export function LandingPage() {
         <div className={classes.controls}>
           <Button
             component="a"
-            href="https://github.com/mantinedev/mantine"
+            href="/demo"
             className={classes.control}
             size="lg"
             variant="default"
@@ -152,9 +152,10 @@ export function LandingPage() {
           </Button>
           <Button
             component="a"
-            href="https://github.com/smyja/mantine"
+            href="https://github.com/smyja/lorem"
             className={classes.control}
             size="lg"
+            target="_blank"
           >
             Github
           </Button>
