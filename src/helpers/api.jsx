@@ -13,5 +13,6 @@ export const api = {
   posts: {
     list: `${baseURL}/api/blog/posts/`,
     create: `${baseURL}/api/v1/post`,
+    question: `${baseURL}/api/v0/api/getquestion`,
   },
 };
