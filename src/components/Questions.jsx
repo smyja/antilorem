@@ -53,8 +53,8 @@ const Questiongen = () => {
     <>
       <form onSubmit={handleSubmit} className={classes.form}>
       <Textarea
-        label="Autosize with 4 rows max"
-        placeholder="Autosize with 4 rows max"
+        label="Text"
+        placeholder="Enter an essay/text"
         autosize
         minRows={2}
           maxRows={4}
@@ -71,6 +71,7 @@ const Questiongen = () => {
       />
   
         <TextInput
+          label="Pick a word from the text you typed as an answer"
           placeholder="Enter the Answer"
           className={classes.textare}
           style={{
