@@ -20,6 +20,12 @@ const useStyles = createStyles((theme) => ({
     {
       width: "400px !important",
     },
+    TextInput: {
+      "@media (max-width: 800px)":
+      {
+      marginTop: "100px",
+      },
+    },
   },
 }))
 const Questiongen = () => {
