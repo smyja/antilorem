@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Textarea, Button, TextInput,  createStyles } from "@mantine/core";
+import { Button, TextInput,  createStyles, Textarea } from "@mantine/core";
 import { api } from "../helpers/api";
 import axios from "axios";
 
@@ -51,19 +51,24 @@ const Questiongen = () => {
   return (
     <>
       <form onSubmit={handleSubmit} className={classes.form}>
-        <Textarea
-          placeholder="Start writing your story..."
-          label="Title"
-          autosize
+      <Textarea
+        label="Autosize with 4 rows max"
+        placeholder="Autosize with 4 rows max"
+        autosize
+        minRows={2}
+          maxRows={4}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
           style={{
             width: "500px",
             height: "20px",
             marginLeft: "360px",
+
           }}
-          value={text}
-          onChange={(e) => setText(e.target.value)}
           className={classes.textare}
-        ></Textarea>
+
+      />
+  
         <TextInput
           placeholder="Enter the Answer"
           className={classes.textare}
@@ -71,7 +76,7 @@ const Questiongen = () => {
             width: "500px",
             height: "20px",
             marginLeft: "360px",
-            marginTop: "60px",
+            marginTop: "100px",
           }}
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
