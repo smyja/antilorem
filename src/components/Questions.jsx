@@ -20,12 +20,7 @@ const useStyles = createStyles((theme) => ({
     {
       width: "400px !important",
     },
-    TextInput: {
-      "@media (max-width: 800px)":
-      {
-      marginTop: "100px",
-      },
-    },
+ 
   },
 }))
 const Questiongen = () => {
@@ -82,7 +77,7 @@ const Questiongen = () => {
             width: "500px",
             height: "20px",
             marginLeft: "360px",
-            marginTop: "100px",
+            marginTop: "130px",
           }}
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
