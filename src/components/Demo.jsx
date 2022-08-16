@@ -75,7 +75,6 @@ const Demo = () => {
           className={classes.textare}
         ></Textarea>
         <NumberInput
-          label="Number of words to Generate"
           placeholder="Enter the number of words to Generate"
           className={classes.textare}
           style={{
