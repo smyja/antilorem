@@ -75,23 +75,23 @@ function Feature({
 
 const mockdata = [
   {
-    icon: IconTruck,
-    title: "Free Worldwide shipping",
+    icon: IconCertificate,
+    title: "Content/Text generator",
     description:
-      "As electricity builds up inside its body, it becomes more aggressive. One theory is that the electricity.",
+      "Generate content and text for your website, blog, or any other place on the web.",
   },
   {
     icon: IconCertificate,
-    title: "Best Quality Product",
+    title: "Question generator",
     description:
-      "Slakoth’s heart beats just once a minute. Whatever happens, it is content to loaf around motionless.",
+      "Generate questions for your content",
   },
-  {
-    icon: IconCoin,
-    title: "Very Affordable Pricing",
-    description:
-      "Thought to have gone extinct, Relicanth was given a name that is a variation of the name of the person who discovered.",
-  },
+  // {
+  //   icon: IconCoin,
+  //   title: "Very Affordable Pricing",
+  //   description:
+  //     "Thought to have gone extinct, Relicanth was given a name that is a variation of the name of the person who discovered.",
+  // },
 ];
 
 export function FeaturesAsymmetrical() {
