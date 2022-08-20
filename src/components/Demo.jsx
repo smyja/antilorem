@@ -65,9 +65,11 @@ const Demo = () => {
           placeholder="Start writing your story..."
           label="Title"
           autosize
+          minRows={2}
+          maxRows={4}
           style={{
             width: "500px",
-            height: "20px",
+
             marginLeft: "360px",
           }}
           value={title}
@@ -76,12 +78,13 @@ const Demo = () => {
         ></Textarea>
         <NumberInput
           placeholder="Enter the number of words to Generate"
+          label ="Number of words to Generate"
           className={classes.textare}
           style={{
             width: "500px",
             height: "20px",
             marginLeft: "360px",
-            marginTop: "60px",
+            marginTop: "30px",
           }}
           value={length}
           onChange={(val) => setLength(val)}
