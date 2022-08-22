@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import ReactDOMServer from "react-dom/server";
-import { Textarea, Button, NumberInput,  createStyles } from "@mantine/core";
-import TypeWriterEffect from "react-typewriter-effect";
+import { Textarea, Button, NumberInput,Group,  createStyles } from "@mantine/core";
 import Typewriter from "typewriter-effect";
 import { api } from "../helpers/api";
 import axios from "axios";
@@ -30,6 +28,8 @@ const Demo = () => {
   const [output, setOutput] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loading1, setLoading1] = useState(false);
+  const [loading2, setLoading2] = useState(false);
   const [title, setTitle] = useState("");
   const [length, setLength] = useState(0);
   const [author, setAuthor] = useState("");
@@ -57,10 +57,57 @@ const Demo = () => {
         setError(err.message || err);
       });
   }
-
+  function paraphrase(e) {
+    e.preventDefault();
+    setLoading2(true);
+    axios
+      // eslint-disable-next-line no-restricted-globals
+      .post(api.posts.paraphrase, { name: title, length: length })
+      .then((res) => {
+        // console.log(res.data);
+        setLoading2(false);
+        setOutput(res.data);
+        setAuthor(
+          <Typewriter
+            onInit={(typewriter) => {
+              typewriter.typeString(`${res.data.output}`).changeDelay(1).start();
+            }}
+          />
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading2(false);
+        setError(err.message || err);
+      });
+  }
+  function summarize(e) {
+    e.preventDefault();
+    setLoading1(true);
+    axios
+      // eslint-disable-next-line no-restricted-globals
+      .post(api.posts.summarize, { name: title, length: length })
+      .then((res) => {
+        // console.log(res.data);
+        setLoading1(false);
+        setOutput(res.data);
+        setAuthor(
+          <Typewriter
+            onInit={(typewriter) => {
+              typewriter.typeString(`${res.data.output}`).changeDelay(1).start();
+            }}
+          />
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading1(false);
+        setError(err.message || err);
+      });
+  }
   return (
     <>
-      <form onSubmit={handleSubmit} className={classes.form}>
+      <form className={classes.form}>
         <Textarea
           placeholder="Start writing your story..."
           label="Title"
@@ -107,14 +154,35 @@ const Demo = () => {
         >
           {loading ? <div>Loading...</div> : author}
         </div>
-
-        <Button
+<Group> <Button
           style={{ marginLeft: "360px", marginTop: "5px" }}
-          type="submit"
+          type="button"
           loading={loading}
+          onClick={handleSubmit}
+
         >
-          Submit
+        Autocomplete
         </Button>
+        <Button
+          style={{  marginTop: "5px" }}
+          type="button"
+          loading={loading2}
+          onClick={paraphrase}
+
+        >
+          Paraphrase
+        </Button>
+        <Button
+          style={{  marginTop: "5px" }}
+          type="button"
+          loading={loading1}
+          onClick={summarize}
+
+        >
+          Summarize
+        </Button>
+        </Group>
+       
 
         {error && <p>{error}</p>}
       </form>

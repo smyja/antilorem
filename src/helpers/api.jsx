@@ -14,5 +14,7 @@ export const api = {
     list: `${baseURL}/api/blog/posts/`,
     create: `${baseURL}/api/v1/post`,
     question: `${baseURL}/api/v0/api/getquestion`,
-  },
+    paraphrase: `${baseURL}/api/v1/paraphrase`,
+    summarize:`${baseURL}/api/v1/summarize`,
+   },
 };
