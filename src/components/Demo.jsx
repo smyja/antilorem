@@ -26,6 +26,7 @@ const useStyles = createStyles((theme) => ({
 const Demo = () => {
   const { classes } = useStyles();
   const [output, setOutput] = useState("");
+  const [output1, setOutput1] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loading1, setLoading1] = useState(false);
@@ -33,6 +34,8 @@ const Demo = () => {
   const [title, setTitle] = useState("");
   const [length, setLength] = useState(0);
   const [author, setAuthor] = useState("");
+  const [author1, setAuthor1] = useState("");
+  const [author2, setAuthor2] = useState("");
   function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
@@ -67,7 +70,7 @@ const Demo = () => {
         // console.log(res.data);
         setLoading2(false);
         setOutput(res.data);
-        setAuthor(
+        setAuthor2(
           <Typewriter
             onInit={(typewriter) => {
               typewriter.typeString(`${res.data.output}`).changeDelay(1).start();
@@ -90,8 +93,8 @@ const Demo = () => {
       .then((res) => {
         // console.log(res.data);
         setLoading1(false);
-        setOutput(res.data);
-        setAuthor(
+        setOutput1(res.data);
+        setAuthor1(
           <Typewriter
             onInit={(typewriter) => {
               typewriter.typeString(`${res.data.output}`).changeDelay(1).start();
@@ -153,6 +156,8 @@ const Demo = () => {
           }}
         >
           {loading ? <div>Loading...</div> : author}
+          {loading1 ? <div>Loading...</div> : author1}
+          {loading2 ? <div>Loading...</div> : author2}
         </div>
 <Group> <Button
           style={{ marginLeft: "360px", marginTop: "5px" }}
