@@ -15,6 +15,7 @@ export const api = {
     create: `${baseURL}/api/v1/post`,
     question: `${baseURL}/api/v0/api/getquestion`,
     paraphrase: `${baseURL}/api/v1/paraphrase`,
-    summarize:`${baseURL}/api/v1/summarize`,
+    summarize: `${baseURL}/api/v1/summarize`,
+    qgen: `${baseURL}/api/v0/api/getquestion`,
    },
 };

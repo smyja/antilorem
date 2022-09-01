@@ -13,13 +13,13 @@ const useStyles = createStyles((theme) => ({
   textare: {
     "@media (max-width: 800px)":
     {
-      width: "400px !important",
+      width: "50% !important",
       },
   },
   output: {
     "@media (max-width: 800px)":
     {
-      width: "400px !important",
+      width: "50% !important",
     },
   },
 }))
