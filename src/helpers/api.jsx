@@ -1,6 +1,6 @@
 const baseURL =
   process.env.NODE_ENV === "development"
-    ? "https://api.antilorem.xyz"
+    ? "http://127.0.0.1:8000"
     : "https://api.antilorem.xyz";
 console.log(process.env);
 export const api = {
@@ -13,6 +13,7 @@ export const api = {
   posts: {
     list: `${baseURL}/api/blog/posts/`,
     create: `${baseURL}/api/v1/post`,
+    chat: `${baseURL}/api/v1/chat`,
     question: `${baseURL}/api/v0/api/getquestion`,
     paraphrase: `${baseURL}/api/v1/paraphrase`,
     summarize: `${baseURL}/api/v1/summarize`,
