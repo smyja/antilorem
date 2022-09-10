@@ -18,5 +18,5 @@ export const api = {
     paraphrase: `${baseURL}/api/v1/paraphrase`,
     summarize: `${baseURL}/api/v1/summarize`,
     qgen: `${baseURL}/api/v0/api/getquestion`,
-   },
+  },
 };

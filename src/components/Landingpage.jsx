@@ -119,8 +119,7 @@ export function LandingPage() {
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             fontSize: "80px",
-            backgroundColor:"#4d0eae",
-      
+            backgroundColor: "#4d0eae",
           }}
         >
           Anti-lorem

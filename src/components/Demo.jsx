@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Textarea, Button, NumberInput,Group,  createStyles } from "@mantine/core";
+import {
+  Textarea,
+  Button,
+  NumberInput,
+  Group,
+  createStyles,
+} from "@mantine/core";
 import Typewriter from "typewriter-effect";
 import { api } from "../helpers/api";
 import axios from "axios";
@@ -11,18 +17,16 @@ const useStyles = createStyles((theme) => ({
     },
   },
   textare: {
-    "@media (max-width: 800px)":
-    {
-      width: "50% !important",
-      },
-  },
-  output: {
-    "@media (max-width: 800px)":
-    {
+    "@media (max-width: 800px)": {
       width: "50% !important",
     },
   },
-}))
+  output: {
+    "@media (max-width: 800px)": {
+      width: "50% !important",
+    },
+  },
+}));
 const Demo = () => {
   const { classes } = useStyles();
   const [output, setOutput] = useState("");
@@ -49,7 +53,10 @@ const Demo = () => {
         setAuthor(
           <Typewriter
             onInit={(typewriter) => {
-              typewriter.typeString(`${res.data.output}`).changeDelay(1).start();
+              typewriter
+                .typeString(`${res.data.output}`)
+                .changeDelay(1)
+                .start();
             }}
           />
         );
@@ -73,7 +80,10 @@ const Demo = () => {
         setAuthor2(
           <Typewriter
             onInit={(typewriter) => {
-              typewriter.typeString(`${res.data.output}`).changeDelay(1).start();
+              typewriter
+                .typeString(`${res.data.output}`)
+                .changeDelay(1)
+                .start();
             }}
           />
         );
@@ -97,7 +107,10 @@ const Demo = () => {
         setAuthor1(
           <Typewriter
             onInit={(typewriter) => {
-              typewriter.typeString(`${res.data.output}`).changeDelay(1).start();
+              typewriter
+                .typeString(`${res.data.output}`)
+                .changeDelay(1)
+                .start();
             }}
           />
         );
@@ -128,7 +141,7 @@ const Demo = () => {
         ></Textarea>
         <NumberInput
           placeholder="Enter the number of words to Generate"
-          label ="Number of words to Generate"
+          label="Number of words to Generate"
           className={classes.textare}
           style={{
             width: "500px",
@@ -140,7 +153,7 @@ const Demo = () => {
           onChange={(val) => setLength(val)}
         />
         <div
-          className= {classes.output}
+          className={classes.output}
           style={{
             // backgroundColor: "#2C2E33",
             font: "small courier, monospace black",
@@ -159,35 +172,33 @@ const Demo = () => {
           {loading1 ? <div>Loading...</div> : author1}
           {loading2 ? <div>Loading...</div> : author2}
         </div>
-<Group> <Button
-          style={{ marginLeft: "360px", marginTop: "5px" }}
-          type="button"
-          loading={loading}
-          onClick={handleSubmit}
-
-        >
-        Autocomplete
-        </Button>
-        <Button
-          style={{  marginTop: "5px" }}
-          type="button"
-          loading={loading2}
-          onClick={paraphrase}
-
-        >
-          Paraphrase
-        </Button>
-        <Button
-          style={{  marginTop: "5px" }}
-          type="button"
-          loading={loading1}
-          onClick={summarize}
-
-        >
-          Summarize
-        </Button>
+        <Group>
+          {" "}
+          <Button
+            style={{ marginLeft: "360px", marginTop: "5px" }}
+            type="button"
+            loading={loading}
+            onClick={handleSubmit}
+          >
+            Autocomplete
+          </Button>
+          <Button
+            style={{ marginTop: "5px" }}
+            type="button"
+            loading={loading2}
+            onClick={paraphrase}
+          >
+            Paraphrase
+          </Button>
+          <Button
+            style={{ marginTop: "5px" }}
+            type="button"
+            loading={loading1}
+            onClick={summarize}
+          >
+            Summarize
+          </Button>
         </Group>
-       
 
         {error && <p>{error}</p>}
       </form>

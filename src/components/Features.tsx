@@ -83,8 +83,7 @@ const mockdata = [
   {
     icon: IconCertificate,
     title: "Question generator",
-    description:
-      "Generate questions for your content",
+    description: "Generate questions for your content",
   },
   // {
   //   icon: IconCoin,

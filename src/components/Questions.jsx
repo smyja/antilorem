@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, TextInput,  createStyles, Textarea } from "@mantine/core";
+import { Button, TextInput, createStyles, Textarea } from "@mantine/core";
 import { api } from "../helpers/api";
 import axios from "axios";
 
@@ -10,19 +10,16 @@ const useStyles = createStyles((theme) => ({
     },
   },
   textare: {
-    "@media (max-width: 800px)":
-    {
-      width: "400px !important",
-      },
-  },
-  output: {
-    "@media (max-width: 800px)":
-    {
+    "@media (max-width: 800px)": {
       width: "400px !important",
     },
- 
   },
-}))
+  output: {
+    "@media (max-width: 800px)": {
+      width: "400px !important",
+    },
+  },
+}));
 const Questiongen = () => {
   const { classes } = useStyles();
   const [output, setOutput] = useState("");
@@ -40,7 +37,6 @@ const Questiongen = () => {
         // console.log(res.data);
         setLoading(false);
         setOutput(res.data);
-    
       })
       .catch((err) => {
         console.log(err);
@@ -52,11 +48,11 @@ const Questiongen = () => {
   return (
     <>
       <form onSubmit={handleSubmit} className={classes.form}>
-      <Textarea
-        label="Text"
-        placeholder="Enter an essay/text"
-        autosize
-        minRows={2}
+        <Textarea
+          label="Text"
+          placeholder="Enter an essay/text"
+          autosize
+          minRows={2}
           maxRows={4}
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -64,12 +60,10 @@ const Questiongen = () => {
             width: "500px",
             height: "20px",
             marginLeft: "360px",
-
           }}
           className={classes.textare}
+        />
 
-      />
-  
         <TextInput
           label="Pick a word from the text you typed as an answer"
           placeholder="Enter the Answer"
@@ -84,7 +78,7 @@ const Questiongen = () => {
           onChange={(e) => setAnswer(e.target.value)}
         />
         <div
-          className= {classes.output}
+          className={classes.output}
           style={{
             // backgroundColor: "#2C2E33",
             font: "small courier, monospace black",
@@ -99,7 +93,7 @@ const Questiongen = () => {
             borderBottom: "medium none",
           }}
         >
-         {loading ? ( <div>Loading...</div>) : ( <div>{output.question}</div>)}
+          {loading ? <div>Loading...</div> : <div>{output.question}</div>}
         </div>
 
         <Button
