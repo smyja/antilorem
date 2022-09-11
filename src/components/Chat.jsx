@@ -22,10 +22,8 @@ const Chat = () => {
     setPrevMessage((prevMessage) => [...prevMessage, text]);
     setText("");
     axios
-      // eslint-disable-next-line no-restricted-globals
-      .post(api.posts.chat, { name: text, length: 18 })
+      .post(api.posts.chat, { name: text, length: 15 })
       .then((res) => {
-        // console.log(res.data);
         setLoading(false);
         setPrevOutput((prevOutput) => [...prevOutput, res.data.output]);
         setMessage(res.data);
@@ -87,13 +85,25 @@ const Chat = () => {
             >
               {message}
             </div>
-          </Paper>
-          {loading ? (
-            <Typewriter
+              </Paper>
+              {/* add the word typing to the typewriter effect */}
+          
+              
+              {loading ? (
+                //   Specify color of the text in the typing effect
+                  <div style={{ color: "purple" }}>
+               
+                    
+                  <Typewriter
+                  options={{
+              
+                    loop: true,
+                }}
               onInit={(typewriter) => {
-                typewriter.typeString("......").start();
+                          typewriter.typeString(".......").start();
+                       
               }}
-            />
+            /> </div>
           ) : (
             <div>
               <Paper
