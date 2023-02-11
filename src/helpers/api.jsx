@@ -1,7 +1,7 @@
 const baseURL =
   process.env.NODE_ENV === "development"
-    ? "https://api.antilorem.xyz"
-    : "https://api.antilorem.xyz";
+    ? "http://127.0.0.1:8000"
+    : "http://127.0.0.1:8000";
 console.log(process.env);
 export const api = {
   auth: {

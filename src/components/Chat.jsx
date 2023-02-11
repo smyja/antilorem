@@ -1,43 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Typewriter from "typewriter-effect";
-import { Paper, TextInput, Button, Space, Notification } from "@mantine/core";
+import { Paper, TextInput, Button, Space } from "@mantine/core";
 import axios from "axios";
 import { api } from "../helpers/api";
 import "../test.css";
+
 
 // set backcground color of the entire page
 
 const Chat = () => {
   const [text, setText] = useState("");
-  const [output, setMessage] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [prevMessage, setPrevMessage] = useState([]);
   const [prevOutput, setPrevOutput] = useState([]);
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  
+    if (!text) { 
+      setError("Please enter a question.");
+      return;
+    }
+  
+    setError(null);
+    
+    const currentMessage = text;
+    setPrevMessage([...prevMessage, currentMessage]);
     setLoading(true);
-    console.log(text);
-
-    setPrevMessage((prevMessage) => [...prevMessage, text]);
-    setText("");
-    axios
-      .post(api.posts.chat, { name: text, length: 15 })
-      .then((res) => {
+  
+    const timeoutId = setTimeout(() => {
+      setError("Sorry, there was an error processing your request.");
+      setLoading(false);
+    }, 5000);
+  
+    axios.post(api.posts.chat, { name: text, length: 15 })
+      .then(response => {
+        clearTimeout(timeoutId);
+        const answer = response.data.output;
+        setPrevOutput([...prevOutput, answer]);
         setLoading(false);
-        setPrevOutput((prevOutput) => [...prevOutput, res.data.output]);
-        setMessage(res.data);
-        console.log(res.data);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(error => {
+        setError("Sorry, there was an error processing your request.");
         setLoading(false);
-        setError(err.message || err);
       });
   };
-
+  
   return (
-    <div style={{ backgroundColor: "#f5f5f5",minHeight:"100vh" }}>
+    <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
       <form onSubmit={handleSubmit}>
         <TextInput
           label="Text"
@@ -63,7 +73,7 @@ const Chat = () => {
       {/* display a prevMessage for each prevOutput */}
 
       {prevMessage.map((message, index) => (
-        <div key={message}>
+        <div key={index}>
           <Paper
             style={{
               padding: 10,
@@ -85,11 +95,8 @@ const Chat = () => {
             >
               {message}
             </div>
-              </Paper>
-              {/* add the word typing to the typewriter effect */}
-          
-              
-              {loading ? (
+          </Paper>
+          {loading ? (
                 //   Specify color of the text in the typing effect
                   <div style={{ color: "purple" }}>
                
@@ -132,6 +139,7 @@ const Chat = () => {
           )}
         </div>
       ))}
+
     </div>
   );
 };
