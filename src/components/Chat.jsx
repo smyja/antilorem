@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
-import './Chat.css'; // import a separate CSS file for the component styles
+// import './Chat.css'; // import a separate CSS file for the component styles
 import {api} from '../helpers/api';
 import { Paper, TextInput, Button, Space } from "@mantine/core";
 function Chat() {
@@ -34,8 +34,8 @@ function Chat() {
 
   return (
     <div className="chat-container">
-      <h1 className="chat-title">Chat Component</h1>
-      <div className="chat-history">
+      <h1 className="chat-title">Humanize demo</h1>
+      <div className="chat-history" style={{ marginLeft: "200px" }}>
         {chatHistory.map((message, index) => (
           <div key={index}>
           {message.from === 'user' ?          
@@ -87,9 +87,12 @@ function Chat() {
           </div>
         ))}
       </div>
-      <form onSubmit={handleSubmit} className="chat-form">
-        <input type="text" value={message} onChange={(event) => setMessage(event.target.value)} className="chat-input" />
-        <button type="submit" className="chat-button">Send</button>
+      <form onSubmit={handleSubmit} className="chat-form" style={{ marginLeft: "200px" }}>
+        <TextInput value={message} onChange={(event) => setMessage(event.target.value)} style={{ width: "300px" }} />
+        <Space h="md" />
+        <Button type="submit" style={{ width: "130px"  }}>
+          Send
+        </Button>
       </form>
       {isLoading && <div>Loading...</div>}
     </div>
