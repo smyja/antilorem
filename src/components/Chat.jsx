@@ -1,79 +1,39 @@
-import React, { useState, useEffect } from "react";
-import Typewriter from "typewriter-effect";
+import React, { useState } from 'react';
+import axios from 'axios';
+import './Chat.css'; // import a separate CSS file for the component styles
+import {api} from '../helpers/api';
 import { Paper, TextInput, Button, Space } from "@mantine/core";
-import axios from "axios";
-import { api } from "../helpers/api";
-import "../test.css";
-
-
-// set backcground color of the entire page
-
-const Chat = () => {
-  const [text, setText] = useState("");
-  const [prevMessage, setPrevMessage] = useState([]);
-  const [prevOutput, setPrevOutput] = useState([]);
-  const [loading, setLoading] = useState(false);
+function Chat() {
+  const [message, setMessage] = useState('');
+  const [chatHistory, setChatHistory] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  
-    if (!text) { 
-      setError("Please enter a question.");
-      return;
-    }
-  
-    setError(null);
-    
-    const currentMessage = text;
-    setPrevMessage([...prevMessage, currentMessage]);
-    setLoading(true);
-  
-    const timeoutId = setTimeout(() => {
-      setError("Sorry, there was an error processing your request.");
-      setLoading(false);
-    }, 5000);
-  
-    axios.post(api.posts.chat, { name: text, length: 15 })
-      .then(response => {
-        clearTimeout(timeoutId);
-        const answer = response.data.output;
-        setPrevOutput([...prevOutput, answer]);
-        setLoading(false);
-      })
-      .catch(error => {
-        setError("Sorry, there was an error processing your request.");
-        setLoading(false);
-      });
-  };
-  
-  return (
-    <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
-      <form onSubmit={handleSubmit}>
-        <TextInput
-          label="Text"
-          placeholder="Ask a question"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          style={{
-            width: "550px",
-            marginLeft: "5px",
-          }}
-        ></TextInput>
-        <Space h="md" />
-        <Button
-          type="submit"
-          style={{
-            marginLeft: "5px",
-          }}
-        >
-          Submit
-        </Button>
-      </form>
-      {/* display message as chat after submit */}
-      {/* display a prevMessage for each prevOutput */}
 
-      {prevMessage.map((message, index) => (
-        <div key={index}>
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const newMessage = { text: message, from: 'user' };
+    setChatHistory([...chatHistory, newMessage]);
+    setIsLoading(true);
+    try {
+      const result = await axios.post(api.posts.chat, { text: message});
+      const botMessage = { text: result.data.id, from: 'bot' };
+      setChatHistory(prevChatHistory => [...prevChatHistory, botMessage]);
+    } catch (error) {
+      console.error(error);
+      setError("Something went wrong. Please try again later.");
+    }
+    setIsLoading(false);
+    setMessage('');
+  };
+
+  return (
+    <div className="chat-container">
+      <h1 className="chat-title">Chat Component</h1>
+      <div className="chat-history">
+        {chatHistory.map((message, index) => (
+          <div key={index}>
+          {message.from === 'user' ?          
           <Paper
             style={{
               padding: 10,
@@ -93,26 +53,9 @@ const Chat = () => {
                 fontStyle: "italic",
               }}
             >
-              {message}
+              {message.text}
             </div>
-          </Paper>
-          {loading ? (
-                //   Specify color of the text in the typing effect
-                  <div style={{ color: "purple" }}>
-               
-                    
-                  <Typewriter
-                  options={{
-              
-                    loop: true,
-                }}
-              onInit={(typewriter) => {
-                          typewriter.typeString(".......").start();
-                       
-              }}
-            /> </div>
-          ) : (
-            <div>
+          </Paper>:             <div>
               <Paper
                 style={{
                   padding: 10,
@@ -132,16 +75,20 @@ const Chat = () => {
                 {error ? (
                   <> {error} </>
                 ) : (
-                  <div style={{ color: "#454546" ,fontStyle: "italic",}}>{prevOutput[index]}</div>
+                  <div style={{ color: "#454546" ,fontStyle: "italic",}}>{message.text}</div>
                 )}
               </Paper>
-            </div>
-          )}
-        </div>
-      ))}
-
+            </div>}
+          </div>
+        ))}
+      </div>
+      <form onSubmit={handleSubmit} className="chat-form">
+        <input type="text" value={message} onChange={(event) => setMessage(event.target.value)} className="chat-input" />
+        <button type="submit" className="chat-button">Send</button>
+      </form>
+      {isLoading && <div>Loading...</div>}
     </div>
   );
-};
+}
 
 export default Chat;
