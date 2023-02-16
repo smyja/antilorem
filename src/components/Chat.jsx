@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import './Chat.css'; // import a separate CSS file for the component styles
 import {api} from '../helpers/api';
@@ -8,6 +8,9 @@ function Chat() {
   const [chatHistory, setChatHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  useEffect(() => {
+    setChatHistory([{ text: 'Welcome! How can I assist you today?', from: 'bot' }]);
+  }, []);
 
 
   const handleSubmit = async (event) => {
@@ -22,6 +25,8 @@ function Chat() {
     } catch (error) {
       console.error(error);
       setError("Something went wrong. Please try again later.");
+      setChatHistory(prevChatHistory => [...prevChatHistory, { text: error, from: 'bot' }]);
+
     }
     setIsLoading(false);
     setMessage('');
